@@ -1,4 +1,4 @@
-name: Bloglist CI/CD
+name: Phonebook CI/CD
 
 on:
   push:
