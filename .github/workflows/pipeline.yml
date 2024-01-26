@@ -41,6 +41,18 @@ jobs:
         run: |
           cd backend
           npm run build:ui
+  deployment:
+    # only run when PR is merged
+    if: ${{ github.event_name == 'push' }}
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy
+        env:
+          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          curl "$deploy_url"
 
   tag_release:
     needs: [simple_deployment_pipeline]
