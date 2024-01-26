@@ -1,0 +1,15 @@
+{
+    "name": "phonebook",
+    "version": "1.0.0",
+    "description": "",
+    "main": "backend/index.js",
+    "scripts": {
+        "start": "node backend/index.js"
+    },
+    "keywords": [],
+    "author": "Vladana Ignjatic",
+    "license": "ISC",
+    "dependencies": {
+        "dotenv": "^16.4.1"
+    }
+}
