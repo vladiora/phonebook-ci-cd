@@ -72,7 +72,7 @@ jobs:
         with:
           severity: info
           description: "to https://phonebook-ci-cd.onrender.com/ by ${{ github.event.head_commit.author.username }}"
-          text: A new version of Pokedex deployed.
+          text: A new version of Phonebook is deployed.
           details: Test Succeeded!
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
 
