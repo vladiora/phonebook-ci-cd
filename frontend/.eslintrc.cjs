@@ -17,5 +17,9 @@ module.exports = {
       { allowConstantExport: true },
     ],
     'react/prop-types': 'off',
+    'linebreak-style': [
+      'error',
+      'unix'
+    ],
   },
 }
