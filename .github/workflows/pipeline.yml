@@ -41,6 +41,17 @@ jobs:
         run: |
           cd backend
           npm run build:ui
+
+      - name: Build Failure
+        if: ${{ github.event_name == 'push' && failure() }}
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: error
+          description: "commit ${{ github.event.head_commit.url }} by ${{ github.event.head_commit.author.username }} broke the build :/"
+          text: Build failed.
+          details: Test Failed!
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
   deployment:
     # only run when PR is merged
     if: ${{ github.event_name == 'push' }}
@@ -48,11 +59,22 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
+
       - name: Deploy
         env:
           deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
         run: |
           curl "$deploy_url"
+
+      - name: Build Success
+        if: ${{ success() }}
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: info
+          description: "to https://phonebook-ci-cd.onrender.com/ by ${{ github.event.head_commit.author.username }}"
+          text: A new version of Pokedex deployed.
+          details: Test Succeeded!
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
 
   tag_release:
     needs: [simple_deployment_pipeline]
